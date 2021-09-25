@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePost } from "../../store/actions/post.actions";
-import { dateParser, isEmpty } from "../Utils";
+import { dateParser, isEmpty } from "../../utils/utils";
 import PostLoading from "./PostLoading";
 import { BookmarkIcon, ChatAltIcon } from "@heroicons/react/outline";
 import PostOption from "./PostOption";

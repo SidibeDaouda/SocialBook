@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { CameraIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost, getPosts } from "../../store/actions/post.actions";
-import { isEmpty, timestampParser } from "../Utils";
+import { isEmpty, timestampParser } from "../../utils/utils";
 import PostLoading from "./PostLoading";
 
 function NewPostFrom() {

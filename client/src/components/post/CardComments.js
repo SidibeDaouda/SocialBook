@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addComment, getPosts } from "../../store/actions/post.actions";
-import { isEmpty, timestampParser } from "../Utils";
+import { isEmpty, timestampParser } from "../../utils/utils";
 import EditDeleteCommentForm from "./EditDeleteCommentForm";
 
 const CardComments = ({ post }) => {

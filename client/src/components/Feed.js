@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPosts } from "../store/actions/post.actions";
-import { isEmpty } from "./Utils";
+import { isEmpty } from "../utils/utils";
 import PostCard from "./post/PostCard";
 import NewPostFrom from "./post/NewPostForm";
 
