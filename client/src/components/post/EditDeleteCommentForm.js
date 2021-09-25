@@ -1,10 +1,10 @@
 import { PencilAltIcon, TrashIcon } from "@heroicons/react/outline";
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteComment, editComment } from "../../actions/post.actions";
+import { deleteComment, editComment } from "../../store/actions/post.actions";
 import { UserContext } from "../../context/UserContext";
 
-const EditDeleteCommentForm = ({ comment, postId, children }) => {
+const EditDeleteCommentForm = ({ comment, postId }) => {
   const [isAuthor, setIsAuthor] = useState(false);
   const [edit, setEdit] = useState(false);
   const [text, setText] = useState("");
@@ -44,42 +44,42 @@ const EditDeleteCommentForm = ({ comment, postId, children }) => {
       >
         {edit ? (
           <form
-            action=''
+            action=""
             onSubmit={handleEdit}
-            className='flex flex-col flex-grow w-full'
+            className="flex flex-col flex-grow w-full"
           >
             <input
-              type='text'
-              name='text'
+              type="text"
+              name="text"
               onChange={(e) => setText(e.target.value)}
               defaultValue={comment.text}
               autoFocus
-              className='w-full p-3 focus:outline-none rounded-md bg-white focus:ring-2 focus:ring-blue-300'
+              className="w-full p-3 focus:outline-none rounded-md bg-white focus:ring-2 focus:ring-blue-300"
             />
 
-            <div className='flex items-center justify-end'>
+            <div className="flex items-center justify-end">
               <p
                 onClick={() => setEdit(!edit)}
-                className='bg-white hover:bg-red-300 hover:text-white font-semibold text-gray-500 mt-2 ml-2 p-2 text-sm rounded-lg transition-colors duration-150 shadow-sm cursor-pointer'
+                className="bg-white hover:bg-red-300 hover:text-white font-semibold text-gray-500 mt-2 ml-2 p-2 text-sm rounded-lg transition-colors duration-150 shadow-sm cursor-pointer"
               >
                 Annuler
               </p>
               <input
-                type='submit'
-                value='Valider modification'
-                className='bg-white hover:bg-blue-300 hover:text-white font-semibold text-gray-500 mt-2 ml-2 p-2 text-sm rounded-lg transition-colors duration-150 shadow-sm cursor-pointer'
+                type="submit"
+                value="Valider modification"
+                className="bg-white hover:bg-blue-300 hover:text-white font-semibold text-gray-500 mt-2 ml-2 p-2 text-sm rounded-lg transition-colors duration-150 shadow-sm cursor-pointer"
               />
             </div>
           </form>
         ) : (
-          <p className='overflow-hidden'>{comment.text}</p>
+          <p className="overflow-hidden">{comment.text}</p>
         )}
 
         {isAuthor && (
           <div className={`flex items-center justify-end ${edit && "mb-2"}`}>
             <PencilAltIcon
               onClick={() => setEdit(!edit)}
-              className='mr-1 p-1 h-6 bg-white rounded-full cursor-pointer shadow-sm'
+              className="mr-1 p-1 h-6 bg-white rounded-full cursor-pointer shadow-sm"
             />
             <TrashIcon
               onClick={() => {
@@ -87,7 +87,7 @@ const EditDeleteCommentForm = ({ comment, postId, children }) => {
                   handleDelete();
                 }
               }}
-              className='p-1 h-6 bg-white rounded-full cursor-pointer shadow-sm'
+              className="p-1 h-6 bg-white rounded-full cursor-pointer shadow-sm"
             />
           </div>
         )}

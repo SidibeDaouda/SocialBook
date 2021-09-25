@@ -6,9 +6,9 @@ import App from "./App";
 import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
-import rootReducer from "./reducers";
-import { getUsers } from "./actions/users.actions";
-import { getPosts } from "./actions/post.actions";
+import rootReducer from "./store/reducers";
+import { getUsers } from "./store/actions/users.actions";
+import { getPosts } from "./store/actions/post.actions";
 
 // dev tools
 import { composeWithDevTools } from "redux-devtools-extension";

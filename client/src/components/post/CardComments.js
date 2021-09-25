@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addComment, getPosts } from "../../actions/post.actions";
+import { addComment, getPosts } from "../../store/actions/post.actions";
 import { isEmpty, timestampParser } from "../Utils";
 import EditDeleteCommentForm from "./EditDeleteCommentForm";
 
@@ -20,7 +20,7 @@ const CardComments = ({ post }) => {
   };
 
   return (
-    <div className='bg-white rounded-md border border-white p-1 shadow-lg'>
+    <div className="bg-white rounded-md border border-white p-1 shadow-lg">
       {post.comments.map((comment) => {
         return (
           <div
@@ -42,16 +42,16 @@ const CardComments = ({ post }) => {
                   })
                   .join("")
               }
-              alt='commenter-pic'
-              className='rounded-full h-10 w-10'
+              alt="commenter-pic"
+              className="rounded-full h-10 w-10"
             />
-            <div className='w-full ml-3'>
-              <div className='flex items-center justify-between'>
-                <h3 className='font-semibold capitalize'>
+            <div className="w-full ml-3">
+              <div className="flex items-center justify-between">
+                <h3 className="font-semibold capitalize">
                   {comment.commenterPseudo}
                 </h3>
-                <div className='w-full flex items-center justify-end mt-2'>
-                  <span className='italic text-xs'>
+                <div className="w-full flex items-center justify-end mt-2">
+                  <span className="italic text-xs">
                     {timestampParser(comment.timestamp)}
                   </span>
                 </div>
@@ -66,20 +66,20 @@ const CardComments = ({ post }) => {
       {userData._id && (
         <form
           onSubmit={handleComment}
-          className='flex items-center justify-end mt-5'
+          className="flex items-center justify-end mt-5"
         >
           <input
-            type='text'
-            name='text'
+            type="text"
+            name="text"
             onChange={(e) => setText(e.target.value)}
             value={text}
-            placeholder='Laisser un commentaire'
-            className=' w-full p-3 focus:outline-none rounded-md bg-white ring-1 ring-gray-300 focus:ring-blue-300 '
+            placeholder="Laisser un commentaire"
+            className=" w-full p-3 focus:outline-none rounded-md bg-white ring-1 ring-gray-300 focus:ring-blue-300 "
           />
           <input
-            type='submit'
-            value='Envoyer'
-            className=' bg-blue-300 hover:bg-blue-400 ml-2 text-white p-3 rounded-lg font-semibold transition-colors duration-150 cursor-pointer'
+            type="submit"
+            value="Envoyer"
+            className=" bg-blue-300 hover:bg-blue-400 ml-2 text-white p-3 rounded-lg font-semibold transition-colors duration-150 cursor-pointer"
           />
         </form>
       )}

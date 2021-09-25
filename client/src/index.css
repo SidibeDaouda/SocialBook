@@ -19,6 +19,9 @@
   .searchInputActive {
     @apply inline-flex ml-2 items-center bg-transparent outline-none border-none  placeholder-gray-500 flex-shrink text-sm;
   }
+  .postCancelbtn {
+    @apply bg-gray-100 hover:bg-red-300 hover:text-white font-semibold text-gray-500 mt-2 ml-2 p-2 text-sm rounded-lg transition-colors duration-150 cursor-pointer;
+  }
 }
 
 @layer utilities {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPosts } from "../actions/post.actions";
+import { getPosts } from "../store/actions/post.actions";
 import { isEmpty } from "./Utils";
 import PostCard from "./post/PostCard";
 import NewPostFrom from "./post/NewPostForm";
@@ -32,8 +32,8 @@ function Feed() {
   }, [loadPost, dispatch, count]);
 
   return (
-    <div className='flex-grow h-screen pb-16 sm:pb-20 pt-6 mx-0 sm:mr-3 xl:mx-0 overflow-y-auto scrollbar-hide md:pr-30 md:pl-4'>
-      <div className='mx-auto max-w-md md:max-w-lg lg:max-w-2xl '>
+    <div className="flex-grow h-screen pb-16 sm:pb-20 pt-6 mx-0 sm:mr-3 xl:mx-0 overflow-y-auto scrollbar-hide md:pr-30 md:pl-4">
+      <div className="mx-auto max-w-md md:max-w-lg lg:max-w-2xl ">
         <NewPostFrom />
         {!isEmpty(posts[0]) &&
           posts.map((post) => {

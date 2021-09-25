@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { UserContext } from "./context/UserContext";
-import { getUser } from "./actions/user.actions";
+import { getUser } from "./store/actions/user.actions";
 import Routes from "./components/Routes/Routes";
 
 function App() {

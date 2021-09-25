@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/UserContext";
 import { useDispatch } from "react-redux";
-import { likePost, unlikePost } from "../../actions/post.actions";
+import { likePost, unlikePost } from "../../store/actions/post.actions";
 import { HeartIcon } from "@heroicons/react/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/solid";
 
@@ -30,15 +30,15 @@ const LikeButton = ({ post }) => {
       {userId === null && <div>Connectez-vous pour aimer un post !</div>}
 
       {userId && liked === false && (
-        <div className='inputIcon rounded-none rounded-bl-2xl' onClick={like}>
-          <HeartIcon className='h-5' />
-          <span className='pl-2'>{post.likers.length}</span>
+        <div className="inputIcon rounded-none rounded-bl-2xl" onClick={like}>
+          <HeartIcon className="h-5" />
+          <span className="pl-2">{post.likers.length}</span>
         </div>
       )}
       {userId && liked && (
-        <div className='inputIcon rounded-none rounded-bl-2xl' onClick={unlike}>
-          <HeartIconSolid className='h-5 text-red-500' />
-          <span className='pl-2'>{post.likers.length}</span>
+        <div className="inputIcon rounded-none rounded-bl-2xl" onClick={unlike}>
+          <HeartIconSolid className="h-5 text-red-500" />
+          <span className="pl-2">{post.likers.length}</span>
         </div>
       )}
     </>
