@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { CameraIcon } from "@heroicons/react/solid";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost, getPosts } from "../../store/actions/post.actions";
 import { isEmpty, timestampParser } from "../../utils/utils";
 import PostLoading from "./PostLoading";
+import { useHistory } from "react-router";
 
 function NewPostFrom() {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,6 +14,11 @@ function NewPostFrom() {
   const userData = useSelector((state) => state.userReducer);
   const error = useSelector((state) => state.errorReducer.postError);
   const dispatch = useDispatch();
+  const { push } = useHistory();
+
+  const goToUserProfil = () => {
+    push({ pathname: "/profil", state: { userId: userData._id } });
+  };
 
   const handlePost = async () => {
     if (message || postPicture) {
@@ -50,16 +55,16 @@ function NewPostFrom() {
       {isLoading ? (
         <PostLoading />
       ) : (
-        <div className="bg-white p-2 rounded-2xl shadow-md text-gray-500 font-medium my-6 ">
+        <div className="bg-white rounded-2xl shadow-md text-gray-500 font-medium my-6 ">
           {/* input send post form  */}
           <div className="flex space-x-4 p-3 items-center">
-            <NavLink to="/profil">
+            <div onClick={goToUserProfil} className="cursor-pointer">
               <img
                 className="rounded-full object-cover h-10 w-10"
                 src={userData.picture}
                 alt="user-img"
               />
-            </NavLink>
+            </div>
 
             <div className="flex flex-col flex-grow items-center space-x-4 p-3">
               <input

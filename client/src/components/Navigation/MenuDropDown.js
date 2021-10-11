@@ -3,9 +3,11 @@ import axios from "axios";
 import cookie from "js-cookie";
 import { LogoutIcon } from "@heroicons/react/outline";
 import { MoonIcon } from "@heroicons/react/solid";
-import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function MenuDropDown({ setIsDropDown, userData }) {
+  const { push } = useHistory();
+
   const removeCookie = (key) => {
     if (window !== "undefined") {
       cookie.remove(key, { expires: 1 });
@@ -56,10 +58,15 @@ function MenuDropDown({ setIsDropDown, userData }) {
           src={userData.picture}
           alt=""
         />
-        <NavLink to="/profil" className="flex flex-col">
+        <div
+          onClick={() =>
+            push({ pathname: "/profil", state: { userId: userData._id } })
+          }
+          className="flex flex-col"
+        >
           <p className="font-semibold">{userData.pseudo}</p>
           <p className="text-sm">Voir mon profil</p>
-        </NavLink>
+        </div>
       </div>
 
       <div className="flex items-center hover:bg-gray-100 cursor-pointer rounded-xl space-x-4 p-2">

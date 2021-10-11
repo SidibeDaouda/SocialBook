@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useContext } from "react";
+
 import {
   HomeIcon,
   SearchIcon,
@@ -33,52 +34,63 @@ const Header = () => {
 
   return (
     userId && (
-      <nav className='sticky top-0 z-10 bg-white flex items-center p-2 lg:px-5 shadow-md h-14  select-none'>
+      <nav className="sticky top-0 z-10 bg-white flex items-center p-2 lg:px-5 shadow-md h-14  select-none">
         {/* left */}
-        <div className='flex items-center'>
-          <NavLink to='/home'>
+        <div className="flex items-center">
+          <NavLink to="/home">
             <img
-              className=' h-12 w-12 md:h-14 md:w-14 object-cover cursor-pointer -mt-2 space-x-2'
+              className=" h-12 w-12 md:h-14 md:w-14 object-cover cursor-pointer -mt-2 space-x-2"
               src={logo}
-              alt=''
+              alt=""
             />
           </NavLink>
 
           <div
-            className='flex ml-2 items-center rounded-full bg-gray-100 p-2 md:cursor-text'
+            className="flex ml-2 items-center rounded-full bg-gray-100 p-2 md:cursor-text"
             onClick={activeSearchInput}
           >
-            <SearchIcon className='h-5 w-5 md:h-6 md:w-6 text-gray-600 cursor-pointer md:cursor-text' />
+            <SearchIcon className="h-5 w-5 md:h-6 md:w-6 text-gray-600 cursor-pointer md:cursor-text" />
             <input
               className={classInputSearch + " w-48"}
-              type='text'
-              placeholder='Rechercher sur TraininBook'
+              type="text"
+              placeholder="Rechercher sur TraininBook"
             />
           </div>
         </div>
 
         {/* center */}
-        <div className='flex justify-center flex-grow'>
-          <div className='flex space-x-6 md:space-x-2'>
-            <HeaderIcon active Icon={HomeIcon} />
-            <HeaderIcon Icon={GlobeIcon} />
-            <HeaderIcon Icon={ChatAltIcon} />
-            <HeaderIcon Icon={BellIcon} />
+        <div className="flex justify-center items-center flex-grow">
+          <div className="flex space-x-6 md:space-x-2">
+            <NavLink to="/home">
+              <HeaderIcon active="home" Icon={HomeIcon} />
+            </NavLink>
+
+            <NavLink to="/trends">
+              <HeaderIcon active="trends" Icon={GlobeIcon} />
+            </NavLink>
+
+            <NavLink to="/message">
+              <HeaderIcon active="message" Icon={ChatAltIcon} />
+            </NavLink>
+
+            <NavLink to="/notification">
+              <HeaderIcon active="notification" Icon={BellIcon} />
+            </NavLink>
           </div>
         </div>
 
         {/* right */}
-        <div className='flex items-center sm:space-x-2 justify-end'>
+        <div className="flex items-center sm:space-x-2 justify-end">
           <div
-            className='flex items-center hover:bg-gray-100 rounded-full cursor-pointer'
+            className="flex items-center hover:bg-gray-100 rounded-full cursor-pointer"
             onClick={activeDropDown}
           >
             <img
-              className='rounded-full p-1 h-8 w-8 md:h-9 md:w-9 object-cover'
+              className="rounded-full p-1 h-8 w-8 md:h-9 md:w-9 object-cover"
               src={userData.picture}
-              alt=''
+              alt=""
             />
-            <p className='hidden lg:inline-block font-semibold whitespace-nowrap pr-3 '>
+            <p className="hidden lg:inline-block font-semibold whitespace-nowrap pr-3 ">
               {userData.pseudo}
             </p>
           </div>

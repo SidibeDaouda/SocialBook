@@ -7,7 +7,7 @@ import { BookmarkIcon, ChatAltIcon } from "@heroicons/react/outline";
 import PostOption from "./PostOption";
 import LikeButton from "./LikeButton";
 import CardComments from "./CardComments";
-import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function PostCard({ post }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,6 +17,11 @@ function PostCard({ post }) {
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
+  const { push } = useHistory();
+
+  const goToUserProfil = () => {
+    push({ pathname: "/profil", state: { userId: post.posterId } });
+  };
 
   const updateItem = () => {
     if (textUpdate) {
@@ -37,32 +42,32 @@ function PostCard({ post }) {
         <>
           <div className="relative p-5 bg-white mt-5 rounded-t-2xl shadow-sm">
             <div className="flex items-center space-x-2">
-              <NavLink to="/profil">
-                <img
-                  className="rounded-full h-10 w-10"
-                  src={
-                    !isEmpty(usersData[0]) &&
-                    usersData
-                      .map((user) => {
-                        if (user._id === post.posterId) return user.picture;
-                        else return null;
-                      })
-                      .join("")
-                  }
-                  alt="poster-pic"
-                />
-              </NavLink>
+              <img
+                onClick={goToUserProfil}
+                className="rounded-full h-10 w-10 cursor-pointer"
+                src={
+                  !isEmpty(usersData[0]) &&
+                  usersData
+                    .map((user) => {
+                      return user._id === post.posterId ? user.picture : null;
+                    })
+                    .join("")
+                }
+                alt="poster-pic"
+              />
               <div>
-                <h3 className="font-medium ">
+                <h3
+                  className="font-medium cursor-pointer w-min"
+                  onClick={goToUserProfil}
+                >
                   {!isEmpty(usersData[0]) &&
                     usersData
                       .map((user) => {
-                        if (user._id === post.posterId) return user.pseudo;
-                        else return null;
+                        return user._id === post.posterId ? user.pseudo : null;
                       })
                       .join("")}
                 </h3>
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-400 cursor-default">
                   {dateParser(post.createdAt)}
                 </p>
               </div>
