@@ -4,6 +4,7 @@ import { UserContext } from "../../context/UserContext";
 import { updateBio, uploadPicture } from "../../store/actions/user.actions";
 import Popup from "../Popup";
 import Bio from "./Bio";
+import FollowHandler from "./FollowHandler";
 import UploadImg from "./UploadImg";
 
 const ProfilHead = ({ userId, tabletToMobile }) => {
@@ -32,8 +33,12 @@ const ProfilHead = ({ userId, tabletToMobile }) => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    dispatch(updateBio(userData._id, bio));
-    setUpdateForm(false);
+    if (bio === "" || bio === userData.bio) {
+      setUpdateForm(false);
+    } else {
+      dispatch(updateBio(userData._id, bio));
+      setUpdateForm(false);
+    }
   };
 
   return usersData.map((user) => {
@@ -45,6 +50,20 @@ const ProfilHead = ({ userId, tabletToMobile }) => {
           } `}
           key={user._id}
         >
+          {followersPopup && (
+            <Popup
+              followersPopup={followersPopup}
+              setFollowersPopup={setFollowersPopup}
+              currUser={user}
+            />
+          )}
+          {followingPopup && (
+            <Popup
+              setFollowingPopup={setFollowingPopup}
+              followingPopup={followingPopup}
+              currUser={user}
+            />
+          )}
           <form
             className="flex flex-col justify-center py-3 relative w-max"
             onSubmit={handlePicture}
@@ -54,6 +73,7 @@ const ProfilHead = ({ userId, tabletToMobile }) => {
               className="rounded-full object-cover h-32 w-32 "
               alt="user-pic"
             />
+
             {userCtx === user._id && (
               <>
                 <UploadImg setFile={setFile} file={file} />
@@ -73,7 +93,13 @@ const ProfilHead = ({ userId, tabletToMobile }) => {
             <p>{error.maxSize}</p>
             <p>{error.format}</p>
           </form>
+          <h2>@{user.pseudo}</h2>
           <p>Role: {user.role}</p>
+
+          {userData._id !== user._id && (
+            <FollowHandler idToFollow={user._id} type="suggestion" />
+          )}
+
           <Bio
             setUpdateForm={setUpdateForm}
             updateForm={updateForm}
@@ -85,21 +111,6 @@ const ProfilHead = ({ userId, tabletToMobile }) => {
             userCtx={userCtx}
             userData={userData}
           />
-
-          {followersPopup && (
-            <Popup
-              followersPopup={followersPopup}
-              setFollowersPopup={setFollowersPopup}
-              currUser={user}
-            />
-          )}
-          {followingPopup && (
-            <Popup
-              setFollowingPopup={setFollowingPopup}
-              followingPopup={followingPopup}
-              currUser={user}
-            />
-          )}
         </div>
       )
     );

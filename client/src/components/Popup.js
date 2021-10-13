@@ -1,6 +1,8 @@
 import { XIcon } from "@heroicons/react/solid";
 import React from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import FollowHandler from "./Profil/FollowHandler";
 
 function Popup({
   setFollowersPopup,
@@ -10,11 +12,16 @@ function Popup({
   currUser,
 }) {
   const usersData = useSelector((state) => state.usersReducer);
+  const { push } = useHistory();
 
   const handleClose = () => {
     followersPopup && setFollowersPopup(false);
     followingPopup && setFollowingPopup(false);
-    // setFollowingPopup(false);
+  };
+
+  const goToUserProfil = (id) => {
+    push({ pathname: "/profil", state: { userId: id } });
+    handleClose();
   };
   return (
     <div
@@ -52,7 +59,8 @@ function Popup({
                             return (
                               <li
                                 key={user._id}
-                                className="flex bg-gray-100 shadow-md mb-1 p-2 items-center w-full rounded-xl"
+                                onClick={() => goToUserProfil(user._id)}
+                                className="flex bg-gray-100 shadow-md mb-1 p-2 items-center w-full rounded-xl cursor-pointer"
                               >
                                 <img
                                   src={user.picture}
@@ -60,6 +68,10 @@ function Popup({
                                   className="h-10 w-10 rounded-full mr-2"
                                 />
                                 <h4>{user.pseudo}</h4>
+                                <FollowHandler
+                                  idToFollow={user._id}
+                                  type="card"
+                                />
                               </li>
                             );
                           }
@@ -80,7 +92,8 @@ function Popup({
                             return (
                               <li
                                 key={user._id}
-                                className="flex bg-gray-100 shadow-md mb-1 p-2 items-center w-full rounded-lg"
+                                onClick={() => goToUserProfil(user._id)}
+                                className="flex bg-gray-100 shadow-md mb-1 p-2 items-center w-full rounded-lg cursor-pointer"
                               >
                                 <img
                                   src={user.picture}
@@ -88,6 +101,10 @@ function Popup({
                                   className="h-10 w-10 rounded-full mr-2"
                                 />
                                 <h4>{user.pseudo}</h4>
+                                <FollowHandler
+                                  idToFollow={user._id}
+                                  type="card"
+                                />
                               </li>
                             );
                           }

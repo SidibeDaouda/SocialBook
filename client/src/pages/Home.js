@@ -33,10 +33,10 @@ function Home() {
   }, [loadPost, dispatch, count]);
 
   return (
-    <div className="flex justify-center w-full">
+    <div className="flex justify-center w-full ">
       <Sidebar userData={userData} />
 
-      <div className="w-screen h-screen pb-16 sm:pb-20 overflow-y-auto scrollbar-hide md:pr-30">
+      <div className="w-4/5 h-screen pb-16 sm:pb-20 overflow-y-auto scrollbar-hide md:pr-30">
         <div className="mx-auto max-w-md md:max-w-lg lg:max-w-2xl ">
           <NewPostForm />
           {!isEmpty(posts[0]) &&

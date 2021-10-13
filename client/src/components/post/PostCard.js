@@ -8,6 +8,7 @@ import PostOption from "./PostOption";
 import LikeButton from "./LikeButton";
 import CardComments from "./CardComments";
 import { useHistory } from "react-router-dom";
+import FollowHandler from "../Profil/FollowHandler";
 
 function PostCard({ post }) {
   const [isLoading, setIsLoading] = useState(true);
@@ -56,17 +57,21 @@ function PostCard({ post }) {
                 alt="poster-pic"
               />
               <div>
-                <h3
-                  className="font-medium cursor-pointer w-min"
-                  onClick={goToUserProfil}
-                >
-                  {!isEmpty(usersData[0]) &&
-                    usersData
-                      .map((user) => {
-                        return user._id === post.posterId ? user.pseudo : null;
-                      })
-                      .join("")}
-                </h3>
+                <div className="font-medium flex items-center ">
+                  <span onClick={goToUserProfil} className="cursor-pointer">
+                    {!isEmpty(usersData[0]) &&
+                      usersData
+                        .map((user) => {
+                          return user._id === post.posterId
+                            ? user.pseudo
+                            : null;
+                        })
+                        .join("")}
+                  </span>
+                  {userData._id !== post.posterId && (
+                    <FollowHandler idToFollow={post.posterId} type="card" />
+                  )}
+                </div>
                 <p className="text-xs text-gray-400 cursor-default">
                   {dateParser(post.createdAt)}
                 </p>

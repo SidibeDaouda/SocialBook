@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Popup from "../Popup";
 
-function SidebarRow({ src, Icon, title, email }) {
+function SidebarRow({ src, Icon, title, email, followersBtn, followingBtn }) {
   const [followersPopup, setFollowersPopup] = useState(false);
   const [followingPopup, setFollowingPopup] = useState(false);
   const userData = useSelector((state) => state.userReducer);
 
   const handleClick = (e) => {
-    if (title === "Abonnés") setFollowersPopup(!followersPopup);
-    if (title === "Abonnements") setFollowingPopup(!followingPopup);
+    followersBtn && setFollowersPopup(!followersPopup);
+    followingBtn && setFollowingPopup(!followingPopup);
   };
 
   return (
