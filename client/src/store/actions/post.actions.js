@@ -20,12 +20,13 @@ export const GET_TRENDS = "GET_TRENDS";
 // errors
 export const GET_POST_ERRORS = "GET_POST_ERRORS";
 
-export const getPosts = (num) => {
+export const getPosts = () => {
   return (dispatch) => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/post/`)
       .then((res) => {
-        const array = res.data.slice(0, num);
+        // const array = res.data.slice(0, num);
+        const array = res.data;
         dispatch({ type: GET_POSTS, payload: array });
         dispatch({ type: GET_ALL_POSTS, payload: res.data });
       })

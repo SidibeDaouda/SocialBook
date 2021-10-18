@@ -2,7 +2,7 @@ const UserModel = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
 
 module.exports.getAllUsers = async (req, res) => {
-  // selection tous les users et toutes leurs données depuis la DB sauf le password (-password) 
+  // selection tous les users et toutes leurs données depuis la DB sauf le password (-password)
   const users = await UserModel.find().select("-password");
   res.status(200).json(users);
 };
@@ -70,7 +70,7 @@ module.exports.follow = async (req, res) => {
         else return res.status(400).json(err);
       }
     );
-    // ajouter à la liste d'abonnée de la personne suivie 
+    // ajouter à la liste d'abonnée de la personne suivie
     await UserModel.findByIdAndUpdate(
       req.body.idToFollow,
       { $addToSet: { followers: req.params.id } },
@@ -115,5 +115,29 @@ module.exports.unfollow = async (req, res) => {
     );
   } catch (err) {
     return res.status(500).json({ message: err });
+  }
+};
+
+module.exports.getFollowings = async (req, res) => {
+  if (!ObjectID.isValid(req.params.id))
+    return res.status(400).send("ID inconncu : " + req.params.id);
+
+  try {
+    const user = await UserModel.findById(req.params.id);
+    const followings = await Promise.all(
+      user.following.map((followingId) => {
+        return UserModel.findById(followingId);
+      })
+    );
+    let followingList = [];
+    followings.map((f) => {
+      if (f !== null) {
+        const { _id, pseudo, picture } = f;
+        return followingList.push({ _id, pseudo, picture });
+      }
+    });
+    res.status(200).json(followingList);
+  } catch (err) {
+    res.status(500).json(err);
   }
 };

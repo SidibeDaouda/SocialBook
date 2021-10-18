@@ -59,9 +59,10 @@ function MenuDropDown({ setIsDropDown, userData }) {
           alt=""
         />
         <div
-          onClick={() =>
-            push({ pathname: "/profil", state: { userId: userData._id } })
-          }
+          onClick={() => {
+            push({ pathname: "/profil", state: { userId: userData._id } });
+            setIsDropDown(false);
+          }}
           className="flex flex-col"
         >
           <p className="font-semibold">{userData.pseudo}</p>

@@ -14,7 +14,6 @@ function SearchBox({ ...props }) {
     axios
       .get(`${process.env.REACT_APP_API_URL}api/user`)
       .then((response) => {
-        console.log(response.data);
         setAllData(response.data);
         setFilteredData(response.data);
       })
@@ -24,13 +23,11 @@ function SearchBox({ ...props }) {
   }, []);
 
   const handleSearch = (e) => {
-    let value = e.target.value;
-    // let value = e.target.value.toLowerCase();
+    let value = e.target.value.toLowerCase();
     value !== "" ? setOpenWrapper(true) : setOpenWrapper(false);
     let result = [];
-    // console.log(value);
     result = allData.filter((data) => {
-      return data.pseudo.search(value) !== -1;
+      return data.pseudo.toLowerCase().search(value) !== -1;
     });
     setFilteredData(result);
   };
@@ -38,7 +35,6 @@ function SearchBox({ ...props }) {
   const disabledSearchInput = (e) => {
     props.setSuggestion(false);
     props.setClassInputSearch("searchInput");
-    console.log("desactiver search");
   };
 
   const useOutsideAlerter = (ref) => {

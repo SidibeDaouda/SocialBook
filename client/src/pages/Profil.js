@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext";
 import { useLocation } from "react-router";
 import ProfilHead from "../components/Profil/ProfilHead";
@@ -12,30 +12,12 @@ function Profil() {
   const location = useLocation();
   const userId = location.state.userId;
   const userIdCtx = useContext(UserContext);
-  const [loadPost, setLoadPost] = useState(true);
-  const [count, setCount] = useState(5);
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postReducer);
 
-  const loadMore = () => {
-    if (
-      window.innerHeight + document.documentElement.scrollTop + 1 >
-      document.scrollingElement.scrollHeight
-    ) {
-      setLoadPost(true);
-    }
-  };
-
   useEffect(() => {
-    if (loadPost) {
-      dispatch(getPosts(count));
-      setLoadPost(false);
-      setCount(count + 5);
-    }
-
-    window.addEventListener("scroll", loadMore);
-    return () => window.removeEventListener("scroll", loadMore);
-  }, [loadPost, dispatch, count]);
+    dispatch(getPosts());
+  }, [dispatch]);
 
   return userIdCtx ? (
     <div className="w-screen h-screen pb-16 sm:pb-20 flex items-center ">
